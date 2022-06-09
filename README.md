@@ -5,3 +5,4 @@
 - Spring Data JPA
 - Mysql
 - Github Action
+- AWS EC2, RDS
