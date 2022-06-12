@@ -16,18 +16,19 @@ import javax.validation.Valid;
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping("/loginid")
-    public ResponseEntity<String> duplicateLoginId(@RequestParam String loginId) {
-        return new ResponseEntity<>(memberService.isDuplicateLoginId(loginId),HttpStatus.BAD_REQUEST);
+    @GetMapping("/email")
+    public ResponseEntity<String> duplicateLoginId(@RequestParam String email) {
+        return new ResponseEntity<>(memberService.isDuplicateLoginId(email), HttpStatus.BAD_REQUEST);
     }
+
     @GetMapping("nickname")
     public ResponseEntity<String> duplicateNickName(@RequestParam String nickName) {
-        return new ResponseEntity<>(memberService.isDuplicateNickName(nickName),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(memberService.isDuplicateNickName(nickName), HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping
     public ResponseEntity<MemberResponse> memberSave(@Valid @RequestBody MemberRequest memberRequest) {
-        return new ResponseEntity<>(new MemberResponse(memberService.save(memberRequest),"회원가입 성공"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new MemberResponse(memberService.save(memberRequest), "회원가입 성공"), HttpStatus.CREATED);
     }
 
 }

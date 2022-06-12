@@ -4,15 +4,16 @@ import com.toyproject.board.entity.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 
 @Getter
 @AllArgsConstructor
 public class MemberRequest {
-    @NotNull(message = "아이디를 필수로 입력하셔야 됩니다.")
-    private String loginId;
-
+    @NotNull(message = "이메일을 필수로 입력하셔야 됩니다.")
+    @Email
+    private String email;
     @NotNull(message = "비밀번호를 필수로 입력하셔야 됩니다.")
     private String password;
 
@@ -25,17 +26,8 @@ public class MemberRequest {
     @NotNull(message = "핸드폰 번호를 필수로 입력하셔야 됩니다.")
     private String phoneNumber;
 
-    @NotNull(message = "이메일을 필수로 입력하셔야 됩니다.")
-    private String email;
-
     public Member toEntity() {
-        return Member.builder()
-                .loginId(loginId)
-                .password(password)
-                .userName(userName)
-                .nickName(nickName)
-                .phoneNumber(phoneNumber)
-                .email(email).build();
+        return new Member(email, password, userName, nickName, phoneNumber);
     }
 
 

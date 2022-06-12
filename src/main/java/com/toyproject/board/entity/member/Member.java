@@ -15,7 +15,7 @@ public class Member {
     private Long id;
 
     @Column(nullable = false)
-    private String loginId;
+    private String email;
 
     @Column(nullable = false)
     private String password;
@@ -29,70 +29,13 @@ public class Member {
     @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
-    private String email;
-
     private int boardCount;
 
-    public static class Builder {
-        private String loginId;
-        private String password;
-        private String userName;
-        private String nickName;
-        private String phoneNumber;
-        private String email;
-
-        private int boardCount;
-
-        public Builder loginId(String loginId) {
-            this.loginId = loginId;
-            return this;
-        }
-
-        public Builder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Builder userName(String userName) {
-            this.userName = userName;
-            return this;
-        }
-
-        public Builder nickName(String nickName) {
-            this.nickName = nickName;
-            return this;
-        }
-
-        public Builder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public Builder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder boardCount(int boardCount) {
-            this.boardCount = boardCount;
-            return this;
-        }
-        public Member build() {
-            return new Member(this);
-        }
-
+    public Member(String email, String password, String userName, String nickName, String phoneNumber) {
+        this.email = email;
+        this.password = password;
+        this.userName = userName;
+        this.nickName = nickName;
+        this.phoneNumber = phoneNumber;
     }
-    private Member(Builder builder) {
-        loginId = builder.loginId;
-        password = builder.password;
-        userName = builder.userName;
-        nickName = builder.nickName;
-        phoneNumber = builder.phoneNumber;
-        email = builder.email;
-    }
-    public static Builder builder() {
-        return new Builder();
-    }
-
 }

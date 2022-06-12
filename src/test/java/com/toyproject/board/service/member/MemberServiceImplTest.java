@@ -6,7 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import javax.transaction.Transactional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -18,12 +20,11 @@ class MemberServiceImplTest {
     MemberService memberService;
 
     Long memberSave() {
-        MemberRequest memberRequest = new MemberRequest("test12",
-                "asd123","asd123","테스터","아으닉네임","01011111111"
-                ,"asd@naver.com");
+        MemberRequest memberRequest = new MemberRequest("asd@naver.com",
+                "asd123", "asd123", "테스터", "아으닉네임", "01011111111"
+        );
         return memberService.save(memberRequest);
     }
-
 
 
     @Test
@@ -31,10 +32,10 @@ class MemberServiceImplTest {
     @Transactional
     void 아이디중복여부() throws Exception {
         //given
-         memberSave();
-        MemberRequest member2 = new MemberRequest("test12",
-                "asd123","asd123","아무개","닉네임2","01022222222"
-                ,"asd@naver.com");
+        memberSave();
+        MemberRequest member2 = new MemberRequest("asd@naver.com",
+                "asd123", "asd123", "아무개", "닉네임2", "01022222222"
+        );
         //when
         MemberCustomException memberCustomException = assertThrows(MemberCustomException.class, () ->
                 memberService.save(member2));
@@ -49,9 +50,9 @@ class MemberServiceImplTest {
     @Transactional
     void 비밀번호_비밀번호재학인_일치여부() throws Exception {
         //given
-        MemberRequest member = new MemberRequest("test12",
-                "asd123","asd1231","아무개","닉네임2","01022222222"
-                ,"asd@naver.com");
+        MemberRequest member = new MemberRequest("asd@naver.com",
+                "asd123", "asd1231", "아무개", "닉네임2", "01022222222"
+        );
         //when
         MemberCustomException memberCustomException = assertThrows(MemberCustomException.class, () ->
                 memberService.save(member));
@@ -67,9 +68,8 @@ class MemberServiceImplTest {
     void 닉네임_중복여부() throws Exception {
         //given
         memberSave();
-        MemberRequest memberRequest = new MemberRequest("admin",
-                "admin12", "admin12", "관리자", "아으닉네임", "01012341234"
-                , "admin@naver.com");
+        MemberRequest memberRequest = new MemberRequest("admin@naver.com",
+                "admin12", "admin12", "관리자", "아으닉네임", "01012341234");
         //when
         MemberCustomException memberCustomException = assertThrows(MemberCustomException.class, () ->
                 memberService.save(memberRequest));
@@ -79,7 +79,6 @@ class MemberServiceImplTest {
         assertThat(memberCustomException.getMemberErrorCode().getStatus().name()).isEqualTo("CONFLICT");
         assertThat(memberCustomException.getMemberErrorCode().getStatus().value()).isEqualTo(409);
     }
-
 
 
 }

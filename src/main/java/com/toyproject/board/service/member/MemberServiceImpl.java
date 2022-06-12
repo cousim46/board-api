@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Long save(MemberRequest memberRequest) {
-        if (memberRepository.existsByLoginId(memberRequest.getLoginId())) {
+        if (memberRepository.existsByEmail(memberRequest.getEmail())) {
             throw new MemberCustomException(MemberErrorCode.DUPLICATE_ID);
         }
         if (!memberRequest.getPassword().equals(memberRequest.getConfirmPassword())) {
@@ -32,8 +32,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String isDuplicateLoginId(String login_id) {
-        if (memberRepository.existsByLoginId(login_id)) {
+    public String isDuplicateEmail(String email) {
+        if (memberRepository.existsByEmail(email)) {
             throw new MemberCustomException(MemberErrorCode.DUPLICATE_ID);
         }
         return "사용 가능한 아이디입니다.";

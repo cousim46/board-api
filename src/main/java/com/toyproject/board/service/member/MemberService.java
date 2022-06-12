@@ -5,7 +5,7 @@ import com.toyproject.board.dto.member.request.MemberRequest;
 public interface MemberService {
     Long save(MemberRequest memberRequest);
 
-    String isDuplicateLoginId(String login_id);
+    String isDuplicateEmail(String email);
 
     String isDuplicateNickName(String nickName);
 }
